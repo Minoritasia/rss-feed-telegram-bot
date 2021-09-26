@@ -43,7 +43,10 @@ def create_feed_checker(feed_url):
         entry = FEED.entries[0]
         if entry.id != db.get_link(feed_url).link:
                        # ↓ Edit this message as your needs.
-            message = f"**ℹ️ 🄽🄴🅆 🅁🅂🅂 ℹ️**\n\n**{entry.title}**\n\n```{entry.link}```"
+            if "yts.mx" in entry.id:
+                message = f"**New YTS RSS**\n\n**{entry.title}**\n\n```{entry.links[1]['href']}```"
+            else:
+                message = f"**New RSS**\n\n**{entry.title}**\n\n```{entry.link}```"
             try:
                 app.send_message(log_channel, message)
                 if app2 is not None:
